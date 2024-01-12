@@ -1,0 +1,23 @@
+﻿@page
+@model Web_Application.Pages.ShoppingCartModel
+@{
+}
+<section class="u-clearfix u-section-1">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        @foreach (var productOrder in Model.productOrders)
+        {
+            <form method="post">
+                <img src="@productOrder.Product.Image">
+
+                <img />
+                <p class="u-text u-text-default u-text-1">@productOrder.Product.Name</p>
+                <p class="u-text u-text-default u-text-2">@productOrder.Quantity</p>
+                <p class="u-text u-text-default u-text-2">@productOrder.Price €</p>
+                <input type="hidden" value="@productOrder.Product.Id" asp-for="ProductId">
+                <button type="submit" asp-page-handler="DeleteProduct" class="u-border-2 u-border-grey-75 u-btn u-button-style u-custom-color-2 u-hover-palette-1-dark-1 u-btn-1">Delete</button>
+            </form>
+        }
+        <p class="u-text u-text-default u-text-3">@Model.OrderTotalPrice €</p>
+        <a href="/Info" class="u-border-2 u-border-grey-75 u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-2">Confirm</a>
+    </div>
+</section>

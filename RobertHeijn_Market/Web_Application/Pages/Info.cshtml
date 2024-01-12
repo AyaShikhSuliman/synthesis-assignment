@@ -1,0 +1,229 @@
+﻿@page
+@model Web_Application.Pages.InfoModel
+@{
+}
+
+<section class="u-align-center u-clearfix u-grey-5 u-section-1">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-form u-form-1">
+            @*<form method="post" class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" style="padding: 10px">*@
+            <div class="u-form-group u-form-select u-label-top u-form-group-5">
+                <label class="u-label">Country</label>
+                <div class="u-form-select-wrapper">
+                    <select asp-for="Address.Country" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-5" required="required">
+                        <option value="" selected disabled>Select your country</option>
+                        @foreach (var country in Model.countries)
+                        {
+                            <option value="counrty">@country</option>
+                        }
+                    </select>
+                    <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                </div>
+            </div>
+            <div class="u-form-group u-label-top u-form-group-7">
+                <label class="u-label">Postcode</label>
+                <input type="text" placeholder="enter your postcode" asp-for="Address.Postcode" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-7" required="required">
+            </div>
+            <div class="u-form-group u-label-top u-form-group-9">
+                <label class="u-label">House Number</label>
+                <input type="text" placeholder="enter you House Number" asp-for="Address.HouseNumber" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-9">
+            </div>
+            <div class="u-form-group u-label-top u-form-group-10">
+                <label class="u-label">Street Name</label>
+                <input type="text" placeholder="enter your Street Name" asp-for="Address.StreetName" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-10" required="required">
+            </div>
+            <div class="u-form-group u-form-select u-label-top u-form-group-1">
+                <label for="select-90bf" class="u-label">Choose a payment method</label>
+                <div class="u-form-select-wrapper">
+                    <select class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1" required="required" asp-for="order.PaymentMethod">
+                        @foreach (var paymentMethod in Model.paymentMethods)
+                        {
+                            <option value="paymentMethod">@paymentMethod</option>
+                        }
+                    </select>
+                    <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                </div>
+            </div>
+
+
+            @*</form>*@
+
+            @*   @if (Model.check != null)
+            {
+            <select name="number">
+            <option value="">Select a number</option>
+            @foreach (var s in Model.timsolts)
+            {
+            if (s.deliveryType == Model.check)
+            {
+            <option value="@s.deliveryTime">@s.deliveryTime</option>
+
+            }
+            }
+            </select>
+            }*@
+            <form method="post" asp-page-handler="order">
+                <select asp-for="@Model.ChosenDeliveryOption">
+                    <option value="">Select a delivery option</option>
+                    @foreach (var option in Model.deliveyOptions)
+                    {
+                        <option value="@option.Name">@option.Name</option>
+                    }
+                </select>
+                <div class="u-form-date u-form-group u-label-top u-form-group-3">
+                    <label for="date-345a" class="u-label">Choose a date</label>
+                    <input type="date" placeholder="MM/DD/YYYY" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-3" required="required" asp-for="@Model.chosenDate">
+                </div>
+
+                @if (Model.check == "PickUp")
+                {
+                    <select asp-for="@Model.locationName">
+                        <option value="">Choose your location</option>
+                        @foreach (var location in @Model.Locations)
+                        {
+                            <option value="@location">@location</option>
+                        }
+                    </select>
+                    @if (Model.locationName != null)
+                    {
+                        <select>
+                            <option value="">Choose your timeslot</option>
+                            @foreach (var timeslot in Model.TimeSlots)
+                            {
+                                <option value="@timeslot">@timeslot</option>
+                            }
+                        </select>
+                    }
+                }
+                else if (Model.check == "Home")
+                {
+                    <select>
+                        @foreach (var timeslot in Model.TimeSlots)
+                        {
+                            <option value="@timeslot">@timeslot</option>
+                        }
+                    </select>
+                }
+
+                <button type="submit">submit</button>
+            </form>
+            @*    <div class="u-form-group u-form-select u-label-top u-form-group-2">
+            <label class="u-label">Choose a delivery option</label>
+            <div class="u-form-select-wrapper">*@
+            @* @functions {
+            public string GetDeliveryOption(String deliveryOption)
+            {
+            InfoModel infoModel = new InfoModel();
+            infoModel.OnDeliveryOptionClick(deliveryOption);
+            return deliveryOption;
+            }
+            }*@@*nclick="OnOptionClick(this)"*@
+
+            @*<select class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" required="required">
+
+            <option selected disabled>Select your delivery option</option>
+            @foreach (var deliveryOption in Model.deliveyOptions)
+            {
+            <option value="@deliveryOption.Name">
+            @deliveryOption.Name
+            </option>
+            }
+
+            </select>
+            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>*@
+            @*</div>
+            </div>*@
+            @*                <button type="submit" class="u-border-2 u-border-grey-75 u-btn u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">NEXT</button>
+            *@                @*
+            @@*if (Model.DeliveryOptionName == "PickUp")
+            {*@
+            @*<div  class="u-form-group u-form-select u-label-top u-form-group-2">
+            <label class="u-label">Choose a location</label>
+            <div class="u-form-select-wrapper">*@
+            @*@functions {
+            public List<string> GetLocations()
+            {
+            InfoModel infoModel = new InfoModel();
+            return infoModel.DisplayLocations(location);
+            }
+            }*@@*onclick="OnOptionClick(this)"*@
+
+            @*<select class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" required="required">
+            @foreach (var location in Model.Locations)
+            {
+            <option value="location">@location</option>
+            }
+            </select>
+            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+            @*  </div>*@
+            @*                </div>*@
+            @*}*@
+
+
+            @*    <div id="time_slots" style="display: none;" class="u-form-group u-form-select u-label-top u-form-group-2">
+            <label class="u-label">Choose a Time Slot</label>
+            <div class="u-form-select-wrapper">
+            <select class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" required="required">
+
+            <option value="location">HI</option>
+
+            </select>
+            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+            </div>
+            </div>
+
+
+
+
+            @*<div class="u-form-group u-form-select u-label-top u-form-group-4">
+            <div class="u-form-group u-form-select u-label-top u-form-group-4">
+            <select class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-4">
+            <label class="u-label">Choose a timeslot</label>
+            @if (Model.deliveryOption == "Home delivery")
+            {
+            <option value="Item 1">Item 1</option>
+            }
+            </select>
+            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+            </div>
+            </div>
+            <div class="u-form-group u-form-select u-label-top u-form-group-5">
+            <label class="u-label">Choose a location</label>
+            <div class="u-form-select-wrapper">
+            <select class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-5">
+            <option value="Item 1">Item 1</option>
+            <option value="Item 2">Item 2</option>
+            <option value="Item 3">Item 3</option>
+            </select>
+            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+            </div>
+            </div>*@
+            <div class="u-align-center u-form-group u-form-submit u-label-top">
+                @*  <button type="submit" class="u-border-2 u-border-grey-75 u-btn u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                Order<br>
+                </button>*@
+            </div>
+        </div>
+    </div>
+</section>
+
+@*//let test = "";
+        //function OnOptionClick(item, event, cli) {
+        //    console.log('test');
+        //    console.log(item, item.value, cli);
+        //    if (item.value == "PickUp") {
+        //        document.getElementById("loction_options").style.display = "block";
+        //        document.getElementById("time_slots").style.display = "none";
+        //    } else if (item.value == "Home") {*@
+@* //        document.getElementById("loction_options").style.display = "none";
+        //        document.getElementById("time_slots").style.display = "block";
+        //    }*@
+@*     //@GetDeliveryOption("PickUp")
+        //                } function OnLocationClick(item, event, cli) {
+        //    console.log('test');
+        //    console.log(item, item.value, cli);
+        //    document.getElementById("time_slots").style.display = "block";
+
+        //@GetDeliveryOption("PickUp")*@
+
+

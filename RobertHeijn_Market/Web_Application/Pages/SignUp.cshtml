@@ -1,0 +1,39 @@
+﻿@page
+@model Web_Application.Pages.SignUpModel
+@{
+}
+<link rel="stylesheet" href="~/css/signup.css">
+
+<section class="u-align-center u-clearfix u-grey-5 u-section-1">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-text u-text-default u-text-1">Sign Up</h1>
+        <div class="u-form u-form-1">
+            <h1>@Model.Message</h1>
+            <form method="post" class="u-clearfix u-form-spacing-20 u-inner-form" style="padding: 10px">
+                <div class="u-form-group u-form-name u-label-top">
+                    <label class="u-label">Name</label>
+                    <input type="text" placeholder="Enter your Name" asp-for="Customer.Name" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1" required="required">
+                </div>
+                <div class="u-form-group u-label-top">
+                    <label class="u-label">Last name</label>
+                    <input type="text" placeholder="Enter your last name" asp-for="Customer.LastName" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-2" required="required">
+                </div>
+                <div class="u-form-group u-label-top u-form-group-3">
+                    <label class="u-label">Email </label>
+                    <input type="text" placeholder="Enter your email address" asp-for="Customer.EmailAddress" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-3" required="required">
+                </div>
+                <div class="u-form-group u-label-top u-form-group-4">
+                    <label class="u-label">Phone Number</label>
+                    <input type="text" placeholder="Enter your phone number" asp-for="Customer.PhoneNumber" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-4" required="required">
+                </div>
+                <div class="u-form-group u-label-top u-form-group-11">
+                    <label class="u-label">Password</label>
+                    <input type="password" asp-for="Customer.Password" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-11" placeholder="Create your Password" required="required">
+                </div>
+                <div class="u-align-center u-form-group u-form-submit u-label-top">
+                    <button type="submit" class="u-border-2 u-border-grey-75 u-btn u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">SignUp</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Contact Us">
+    <meta name="description" content="">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/css/Home.css" media="screen">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="~/css/fancybox.min.css">
+
+    <link rel="stylesheet" href="~/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/fonts/fontawesome/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/js/JavaScript.js" defer=""></script>
+    <meta name="generator" content="Nicepage 5.1.5, nicepage.com">
+    <meta name="referrer" content="origin">
+
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Index">
+    <meta property="og:type" content="website">
+
+</head>
+<body data-home-page="Index" data-home-page-title="Home" class="u-body u-xl-mode" data-lang="en">
+    <header class="u-clearfix u-header u-header" id="sec-985f">
+        <a href="/Index" class="u-image u-logo u-image-1" data-image-width="500" data-image-height="500" title="Home">
+            <img src="~/css/images/thegoodmarket.png" class="u-logo-image u-logo-image-1">
+        </a><nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
+                <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+                    <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
+                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            <div class="u-custom-menu u-nav-container">
+                <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+                    <form method="post">
+                        @foreach (var mainCategory in _LayoutHelper.DisplayMainCategories())
+                        {
+                        <li class="u-nav-item">
+                            <a class="u-active-grey-5 u-border-active-grey-30 u-border-hover-grey-30 u-border-no-bottom u-border-no-left u-border-no-top u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="/Products" style="padding: 10px 20px;">@mainCategory.Name</a>
+                            <div class="u-nav-popup">
+                                <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
+                                        @foreach (var subCategory in _LayoutHelper.DisplaySubCategories(mainCategory.Name))
+                                        {
+                                        <li class="u-nav-item">
+                                            <a class="u-button-style u-nav-link u-white" asp-page="Products" asp-route-category="@subCategory.Name">@subCategory.Name</a>
+                                        </li>
+                                        }
+                                </ul>
+                            </div>
+                        </li>
+                        }
+                    </form>
+                </ul>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+        </nav>
+        @if (!_LayoutHelper.NotLoggedIn(Context))
+        {
+            <span class="u-file-icon u-icon u-icon-1" data-href="/ShoppingCart" title="ShoppingCart">
+                <img src="~/css/images/833314.png" alt="">
+            </span>
+            <span class="u-file-icon u-icon u-icon-2" data-href="/Account" title="Account">
+                <img src="~/css/images/1144760.png" alt="">
+            </span>
+        }
+
+        @if (_LayoutHelper.NotLoggedIn(Context))
+        {
+            <a href="/SignUp" class="u-border-2 u-border-grey-75 u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-1">Signup</a>
+            <a href="/LogIn" class="u-border-2 u-border-grey-75 u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-2">Login</a>
+        }
+
+        <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="u-align-center u-clearfix u-custom-color-1 u-footer u-footer" id="sec-c0f7">
+        <span class="u-file-icon u-icon u-icon-1">
+            <img src="~/css/images/825464.png" alt="">
+        </span><span class="u-file-icon u-icon u-icon-2">
+            <img src="~/css/images/196558.png" alt="">
+        </span><span class="u-file-icon u-icon u-icon-3">
+            <img src="~/css/images/2111463.png" alt="">
+        </span><span class="u-file-icon u-icon u-icon-4">
+            <img src="~/css/images/3536505.png" alt="">
+        </span><p class="u-align-left u-small-text u-text u-text-variant u-text-1">Robertheijn_Market</p><p class="u-align-left u-small-text u-text u-text-variant u-text-2">Robertheijn_Market</p><span class="u-file-icon u-icon u-icon-5">
+            <img src="~/css/images/196565.png" alt="">
+        </span><span class="u-file-icon u-icon u-icon-6">
+            <img src="~/css/images/196578.png" alt="">
+        </span><span class="u-file-icon u-icon u-icon-7">
+            <img src="~/css/images/1409941.png" alt="">
+        </span><span class="u-file-icon u-icon u-icon-8">
+            <img src="~/css/images/733547.png" alt="">
+        </span><p class="u-align-left u-small-text u-text u-text-variant u-text-3">Robertheijn_Market</p><p class="u-align-left u-small-text u-text u-text-variant u-text-4">Robertheijn_Market</p><div class="u-border-3 u-border-black u-expanded-width u-line u-line-horizontal u-line-1"></div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

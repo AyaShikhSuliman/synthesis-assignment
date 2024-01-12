@@ -1,0 +1,32 @@
+﻿@page
+@model Web_Application.Pages.ProductsModel
+@{
+}
+
+<link rel="stylesheet" href="~/css/products.css">
+
+<section class="u-align-center u-clearfix u-section-1">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        @foreach (var product in Model.products)
+        {
+            <form method="post">
+                <input type="hidden" value="@product.Id" asp-for="@Model.productId">
+                <input type="hidden" value="@product.Price" asp-for="productNewPrice">
+
+                <img src="@product.Image"><img />
+                <p class="u-text u-text-default u-text-1">@product.Name</p>
+                <p class="u-text u-text-default u-text-2">@product.Price €</p>
+                <div class="u-form-select-wrapper">
+                    <select class="u-border-1 u-border-grey-30 u-input u-input-rectangle" asp-for="@Model.Quantity">
+                        @for (int Quantity = 1; Quantity <= product.CurrentAmount; Quantity++)
+                        {
+                            <option value="@Quantity">@Quantity</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="u-border-2 u-border-grey-75 u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-1">Add to cart</button>
+            </form>
+        }
+    </div>
+        <a asp-page="/ShoppingCart" class="u-border-2 u-border-grey-75 u-btn u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-btn-1">Checkout</a>
+</section>
